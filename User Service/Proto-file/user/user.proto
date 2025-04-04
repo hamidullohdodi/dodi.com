@@ -1,0 +1,118 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "genproto/user";
+
+// AuthService for user authentication and profile management
+service UserService {
+  //auth
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc LoginEmail(LoginEmailRequest) returns (LoginResponse);
+  rpc LoginUsername(LoginUsernameRequest) returns (LoginResponse);
+  rpc AcceptCodeToRegister(AcceptCode) returns (RegisterResponse);//
+  rpc ForgotPassword(ForgotPasswordRequest) returns (Message);//
+  rpc RegisterAdmin(Message) returns (Message);
+  rpc ResetPassword(ResetPassReq) returns (Message);
+  rpc GetUserByEmail(Email) returns (GetProfileResponse);
+  rpc UpdatePassword(UpdatePasswordReq) returns (Message);
+}
+
+message GetProfileResponse {
+  string user_id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  string phone_number = 5;
+  string username = 6;
+  string nationality = 7;
+  string bio = 8;
+  string profile_image = 9;
+  int32 followers_count = 10;
+  int32 following_count = 11;
+  int32 posts_count = 12;
+  string created_at = 13;
+  string updated_at = 14;
+}
+
+message LoginResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+  string user_id = 3;
+}
+
+
+message LoginResponse1 {
+  string id = 1;
+  string email = 2;
+  string user_name = 3;
+  string password = 4;
+  string role = 5;
+  string country = 6;
+}
+
+message Email {
+  string email = 1;
+}
+
+message RegisterRequest {
+  string email = 1;
+  string phone = 2;
+  string first_name = 3;
+  string last_name = 4;
+  string username = 5;
+  string country = 6;
+  string password = 7;
+  string bio = 8;
+}
+
+message RegisterResponse {
+  string id = 1;
+  string email = 2;
+  string flag = 3;
+  string access_token = 4;
+  string refresh_token = 5;
+}
+
+message LoginEmailRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginUsernameRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message Tokens {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+message Error {
+  string error = 1;
+}
+
+message AcceptCode {
+  string email = 1;
+  string code = 2;
+}
+
+message ForgotPasswordRequest {
+  string email = 1;
+}
+
+message Message {
+  string message = 1;
+}
+
+message ResetPassReq {
+  string email = 1;
+  string new_password = 2;
+  string code = 3;
+}
+
+message UpdatePasswordReq {
+  string id = 1;
+  string password = 2;
+}
